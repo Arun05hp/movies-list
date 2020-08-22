@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "./form";
+import Form from "./common/form";
 import Joi from "joi-browser";
 import { getGenres } from "../services/fakeGenreService";
 
@@ -24,6 +24,9 @@ class MovieForm extends Form {
   componentDidMount() {
     const genres = getGenres();
     this.setState({ genres });
+
+    const movieId = this.props.match.params.id;
+    if (!movieId) return this.props.history.replace("/not-found");
   }
   doSubmit = () => {
     console.log("done");

@@ -83,7 +83,7 @@ class Movies extends Component {
           />
         </div>
         <div className="col-sm-7 col-md-8 col-lg-9">
-          <Link to="/movies/new" className="btn btn-primary">
+          <Link to="/movies/new" className="btn btn-primary my-2">
             New Movies
           </Link>
 
