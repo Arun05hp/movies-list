@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
 import { getMovies } from "../services/fakeMovieService";
@@ -6,6 +7,7 @@ import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import _ from "lodash";
+
 class Movies extends Component {
   constructor(props) {
     super(props);
@@ -81,6 +83,10 @@ class Movies extends Component {
           />
         </div>
         <div className="col-sm-7 col-md-8 col-lg-9">
+          <Link to="/movies/new" className="btn btn-primary">
+            New Movies
+          </Link>
+
           <p>Showing {totalCount} movies in the database</p>
           <MoviesTable
             movies={movies}
