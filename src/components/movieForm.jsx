@@ -2,6 +2,7 @@ import React from "react";
 import Form from "./common/form";
 import Joi from "joi-browser";
 import { getGenres } from "../services/fakeGenreService";
+import { getMovie, saveMovie } from "../services/fakeMovieService";
 
 class MovieForm extends Form {
   state = {
@@ -25,12 +26,26 @@ class MovieForm extends Form {
     const genres = getGenres();
     this.setState({ genres });
 
-    const movie = this.props.match.params.id;
+    const movieId = this.props.match.params.id;
+    if (movieId === "new") return;
+    const movie = getMovie(movieId);
     if (!movie) return this.props.history.replace("/not-found");
     this.setState({ data: this.mapToViewModal(movie) });
   }
+
+  mapToViewModal(movie) {
+    return {
+      _id: movie._id,
+      title: movie.title,
+      genreId: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate,
+    };
+  }
   doSubmit = () => {
-    console.log("done");
+    saveMovie(this.state.data);
+
+    this.props.history.push("/movies");
   };
   render() {
     return (
