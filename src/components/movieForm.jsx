@@ -7,7 +7,7 @@ class MovieForm extends Form {
   state = {
     data: { title: "", genreId: "", numberInStock: "", dailyRentalRate: "" },
     genres: [],
-    error: {},
+    errors: {},
   };
 
   schema = {
@@ -25,8 +25,9 @@ class MovieForm extends Form {
     const genres = getGenres();
     this.setState({ genres });
 
-    const movieId = this.props.match.params.id;
-    if (!movieId) return this.props.history.replace("/not-found");
+    const movie = this.props.match.params.id;
+    if (!movie) return this.props.history.replace("/not-found");
+    this.setState({ data: this.mapToViewModal(movie) });
   }
   doSubmit = () => {
     console.log("done");
@@ -37,8 +38,9 @@ class MovieForm extends Form {
         <h1>Movie Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
-          {this.renderInput("numberInStock", "Number In Stock")}
-          {this.renderInput("dailyRentalRate", "Rate")}
+
+          {this.renderInput("numberInStock", "Number in Stock", "number")}
+          {this.renderInput("dailyRentalRate", "Rate", "number")}
           {this.renderButton("Save")}
         </form>
       </div>
