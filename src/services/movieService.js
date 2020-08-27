@@ -12,20 +12,12 @@ export function getMovie(id) {
   return http.get(apiEndPoint + "/" + id);
 }
 export async function saveMovie(movie) {
-  const { data: movies } = await getMovie();
-  let movieInDb = movies.find((m) => m._id === movie._id) || {};
-  movieInDb.title = movie.title;
-  const genres = await getGenres();
-  movieInDb.genre = genres.find((g) => g._id === movie.genreId);
-  movieInDb.numberInStock = movie.numberInStock;
-  movieInDb.dailyRentalRate = movie.dailyRentalRate;
-
-  if (!movieInDb._id) {
-    movieInDb._id = Date.now().toString();
-    movies.push(movieInDb);
+  if (movie._id) {
+    const body = { ...movie };
+    delete body._id;
+    return http.put(apiEndPoint + "/" + movie._id, body);
   }
-
-  return movieInDb;
+  return http.post(apiEndPoint, movie);
 }
 
 export function deleteMovie(movieId) {
