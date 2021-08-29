@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import auth from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import DemoSlider from "./components/DemoSlider";
 
 class App extends Component {
   state = {};
@@ -30,6 +31,7 @@ class App extends Component {
         <NavBar user={user} />
         <main className="container">
           <Switch>
+            <Route path="/slide" component={DemoSlider} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
